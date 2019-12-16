@@ -25,7 +25,7 @@ func echo(mem []int, target int, n ...int) int {
 	// r := mem[target] // TODO: is this right???
 	bs := []byte(strconv.Itoa(n[0]))
 	GlobalStdOut.Write(bs)
-	// fmt.Println("OUTPUT: ", r)
+	fmt.Println("OUTPUT: ", string(bs))
 	return n[0]
 }
 

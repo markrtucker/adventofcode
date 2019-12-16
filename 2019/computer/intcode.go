@@ -37,8 +37,9 @@ var opcodes = map[int]opcode{
 
 // Intcode is a computer
 type Intcode struct {
-	In  io.Reader
-	Out io.Writer
+	In    io.Reader
+	Out   io.Writer
+	Debug bool
 }
 
 // Compute TODO godoc
@@ -47,11 +48,16 @@ func (i Intcode) Compute(mem []int) int {
 	GlobalStdOut = i.Out
 	ip := 0
 
-	fmt.Println("Init: ", mem)
+	if i.Debug {
+		fmt.Println("Init: ", mem)
+	}
+
 	for {
 		inst, args, target := decode(mem, ip)
 
-		fmt.Println("Instruction: ", inst)
+		if i.Debug {
+			fmt.Println("Instruction: ", inst)
+		}
 		// fmt.Printf("Op: %v\n", inst.op)
 		// out :=
 		n := inst.op(mem, target, args...)
@@ -62,7 +68,9 @@ func (i Intcode) Compute(mem []int) int {
 		// inst.out(mem, out, target)
 
 		ip = inst.nextIP(ip)
-		fmt.Println("Now: ", mem)
+		if i.Debug {
+			fmt.Println("Now: ", mem)
+		}
 	}
 
 	return -99

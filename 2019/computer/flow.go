@@ -1,9 +1,5 @@
 package computer
 
-import (
-	"fmt"
-)
-
 var halt = opcode{
 	nParams: 0,
 	op:      printZeroAndExit,
@@ -12,7 +8,7 @@ var halt = opcode{
 }
 
 func printZeroAndExit(mem []int, target int, args ...int) int {
-	fmt.Println("Halting with final value ", mem[0])
+	// fmt.Println("Halting with final value ", mem[0])
 	// os.Exit(1)
 	return -99
 }
